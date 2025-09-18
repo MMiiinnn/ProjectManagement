@@ -6,7 +6,7 @@ import Button from "./Button";
 const label = ["title", "description", "duedate"];
 const initialProject = { title: "", description: "", duedate: "" };
 
-export default function AddProject({ onAdd, onCancel, selectedProject }) {
+export default function AddProject({ onAdd, onCancel }) {
   const [projectInfor, setProjectInfor] = useState(initialProject);
   const dialog = useRef();
 
@@ -22,11 +22,15 @@ export default function AddProject({ onAdd, onCancel, selectedProject }) {
       projectInfor.description.trim() === "" ||
       projectInfor.duedate.trim() === ""
     ) {
-      // selectedProject = undefined;
       dialog.current.open();
       return;
     }
-    onAdd(projectInfor);
+
+    onAdd({
+      title: projectInfor.title,
+      description: projectInfor.description,
+      duedate: projectInfor.duedate,
+    });
   }
 
   function handleCloseModal() {
